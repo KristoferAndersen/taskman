@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(${PROJECT_NAME} SHARED
             source/TaskMan.cpp
-            source/SayHi.cpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
