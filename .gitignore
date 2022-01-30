@@ -1,0 +1,40 @@
+# Fetched from https://github.com/github/gitignore/blob/main/C++.gitignore
+# and modified
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Case insensitive "build" directory
+[bB][uU][iI][lL][dD]
+
+.vscode
