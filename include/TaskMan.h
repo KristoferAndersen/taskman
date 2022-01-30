@@ -22,10 +22,9 @@ class TaskMan
 public:
 
     TaskMan();
-    void start();
-    void start(int task_type_id);
+    int start();
+    int start(int task_type_id);
 
-    int get_task_count();
     std::vector<int> get_task_ids();
 
 private:

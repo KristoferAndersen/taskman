@@ -1,4 +1,4 @@
-#include "TaskMan.h"
+#include <TaskMan.h>
 
 /*
 * Local header files
@@ -8,8 +8,7 @@
 * System header files
 */
 
-namespace taskman
-{
+namespace taskman {
 
 /*
 * Constructors & Destructor
@@ -20,16 +19,13 @@ TaskMan::TaskMan() {}
 /*
 * Public members
 */
-void TaskMan::start() {
-    start(0);
+int TaskMan::start() {
+    return start(0);
 }
 
-void TaskMan::start(int task_type_id) {
+int TaskMan::start(int task_type_id) {
     m_tasks.push_back(task_type_id);
-}
-
-int TaskMan::get_task_count() {
-    return static_cast<int>(m_tasks.size());
+    return m_tasks[m_tasks.size()-1];  // TODO: Improve
 }
 
 std::vector<int> TaskMan::get_task_ids() {
@@ -44,4 +40,4 @@ std::vector<int> TaskMan::get_task_ids() {
 * Private members
 */
 
-}  // taskman
+}  // namespace taskman

@@ -9,7 +9,9 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(TaskManTest TaskManTest.cpp)
+add_executable(TaskManTest
+               TaskManTest.cpp)
+
 target_link_libraries(TaskManTest gtest_main)
 target_link_libraries(TaskManTest taskman)
 
