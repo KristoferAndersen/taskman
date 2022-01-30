@@ -22,6 +22,5 @@ install(TARGETS ${PROJECT_NAME}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 
-include(FetchContent)
 add_subdirectory(test)
 add_subdirectory(examples)

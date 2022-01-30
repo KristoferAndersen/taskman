@@ -26,6 +26,7 @@ public:
     void start(int task_type_id);
 
     int get_task_count();
+    std::vector<int> get_task_ids();
 
 private:
 

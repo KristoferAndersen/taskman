@@ -32,7 +32,9 @@ int TaskMan::get_task_count() {
     return static_cast<int>(m_tasks.size());
 }
 
-
+std::vector<int> TaskMan::get_task_ids() {
+    return m_tasks;
+}
 
 /*
 * Protected members
