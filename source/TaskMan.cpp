@@ -1,8 +1,9 @@
-#include <TaskMan.h>
+#include "TaskMan.h"
 
 /*
 * Local header files
 */
+#include "TaskController.h"
 
 /*
 * System header files
@@ -14,7 +15,13 @@ namespace taskman {
 * Constructors & Destructor
 */
 
-TaskMan::TaskMan() {}
+TaskMan::TaskMan()
+    : m_task_controller(std::shared_ptr<TaskFactory>(new TaskFactory()), 10000) {
+}
+
+TaskMan::~TaskMan() {
+    // Task controller claims ownership of the taskfactory
+}
 
 /*
 * Public members
@@ -24,12 +31,11 @@ int TaskMan::start() {
 }
 
 int TaskMan::start(int task_type_id) {
-    m_tasks.push_back(task_type_id);
-    return m_tasks[m_tasks.size()-1];  // TODO: Improve
+    return m_task_controller.start(task_type_id);
 }
 
 std::vector<int> TaskMan::get_task_ids() {
-    return m_tasks;
+    return m_task_ids;
 }
 
 /*

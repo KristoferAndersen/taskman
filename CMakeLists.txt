@@ -6,6 +6,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(${PROJECT_NAME} SHARED
             source/TaskMan.cpp
+            # TODO: Get these through include dir
+            source/tasks/HelloTask.cpp
+            source/tasks/HelloTask.h
+            source/tasks/TaskFactory.h
+            source/tasks/TaskFactory.cpp
+            source/TaskController.h
+            source/TaskController.cpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

@@ -4,6 +4,8 @@
 /*
 * Local header files
 */
+#include "ITask.h"
+#include "TaskController.h"
 
 /*
 * System header files
@@ -20,18 +22,17 @@ namespace taskman
 class TaskMan
 {
 public:
-
     TaskMan();
+    ~TaskMan();
+
     int start();
     int start(int task_type_id);
 
     std::vector<int> get_task_ids();
 
 private:
-
-    std::vector<int> m_tasks;
-
-
+    std::vector<int> m_task_ids;
+    TaskController m_task_controller;
 };
 
 } //taskman

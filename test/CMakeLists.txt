@@ -10,9 +10,14 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(TaskManTest
-               TaskManTest.cpp)
+               TaskControllerTest.cpp
+
+               MockFactory.h
+               MockTask.h
+               )
 
 target_link_libraries(TaskManTest gtest_main)
+target_link_libraries(TaskManTest gmock_main)
 target_link_libraries(TaskManTest taskman)
 
 include(GoogleTest)
