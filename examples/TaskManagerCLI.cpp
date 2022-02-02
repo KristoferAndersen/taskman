@@ -5,7 +5,6 @@
 #include <iomanip>
 #include <memory>
 #include <string.h>
-#include <map>
 
 
 class Helper {
@@ -45,15 +44,11 @@ void command_loop() {
 
         std::cin >> command;
 
-
         // There's more input
         if(std::cin.peek() != '\n') {
             std::cin >> argument;
             argument_given = true;
         }
-
-        // std::cin >> command;
-        // std::cin >> argument;
 
         if(command == "help") {
             help();

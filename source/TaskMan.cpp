@@ -38,15 +38,21 @@ int TaskMan::start(std::shared_ptr<ITask> task) {
 }
 
 bool TaskMan::pause(int task_id) {
-    return false;
+    return m_task_controller.pause(task_id);
 }
 
 bool TaskMan::stop() {
-    return false;
+    bool success = true;
+
+    for(int task_id : m_task_controller.get_task_ids()) {
+        success &= stop(task_id);
+    }
+
+    return success;
 }
 
 bool TaskMan::stop(int task_id) {
-    return false;
+    return m_task_controller.stop(task_id);
 }
 
 std::shared_ptr<ITask> TaskMan::get_task(int task_id) {

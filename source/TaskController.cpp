@@ -37,11 +37,6 @@ TaskController::~TaskController() {
 * Public members
 */
 
-int TaskController::start() {
-    // TODO: randomize from menu
-    return start(m_task_factory->HelloTask);
-}
-
 int TaskController::start(int task_type_id) {
 
     // Create and remember task
@@ -60,6 +55,14 @@ int TaskController::start(std::shared_ptr<ITask> task) {
 
     // Return ID of new task
     return task_id;
+}
+
+bool TaskController::pause(int task_id) {
+    return false;
+}
+
+bool TaskController::stop(int task_id) {
+    return false;
 }
 
 std::shared_ptr<ITask> TaskController::get_task(int task_id) {

@@ -29,9 +29,10 @@ public:
     TaskController(const std::shared_ptr<TaskFactory> &task_factory, int task_limit);
     ~TaskController();
 
-    int start();
     int start(int task_type_id);
     int start(std::shared_ptr<ITask> task);
+    bool pause(int task_id);
+    bool stop(int task_id);
     std::shared_ptr<ITask> get_task(int task_id);
     std::map<int, std::string> get_task_types();
     std::vector<int> get_task_ids();

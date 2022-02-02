@@ -48,16 +48,6 @@ TEST_F(TaskControllerTest, no_initial_tasks) {
     EXPECT_EQ(c.get_task_ids().size(), 0) << "Incorrect initial number of tasks";
 }
 
-TEST_F(TaskControllerStartTest, start_any_records_task) {
-    // ACT
-    int expected = c.start();
-    auto tasks = c.get_task_ids();
-
-    // ASSERT
-    ASSERT_EQ(tasks.size(), 1) << "Incorrect task count";
-    EXPECT_EQ(tasks[0], expected) << "Returned ID does not match recorded ID";
-}
-
 TEST_F(TaskControllerStartTest, start_by_type_records_task) {
     // ACT
     int expected_id = c.start(1);
