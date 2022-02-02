@@ -31,7 +31,12 @@ int TaskMan::start() {
 }
 
 int TaskMan::start(int task_type_id) {
+    // TODO: Change to create and reuse task submit?
     return m_task_controller.start(task_type_id);
+}
+
+int TaskMan::start(std::shared_ptr<ITask> task) {
+    return m_task_controller.start(task);
 }
 
 std::shared_ptr<ITask> TaskMan::get_task(int task_id) {

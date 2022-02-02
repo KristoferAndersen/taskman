@@ -30,6 +30,7 @@ public:
 
     int start();
     int start(int task_type_id);
+    int start(std::shared_ptr<ITask> task);
     std::shared_ptr<ITask> get_task(int task_id);
     std::vector<int> get_task_ids();
 

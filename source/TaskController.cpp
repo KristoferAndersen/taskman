@@ -44,6 +44,12 @@ int TaskController::start(int task_type_id) {
 
     // Create and remember task
     std::shared_ptr<ITask> task = m_task_factory->create_task(task_type_id, task_id);
+
+    return start(task);
+}
+
+int TaskController::start(std::shared_ptr<ITask> task) {
+    int task_id = task->get_id();
     m_task_ids.push_back(task_id);
     m_tasks[task_id] = task;
 
