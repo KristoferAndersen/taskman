@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <memory>
 #include <string.h>
+#include <map>
 
 
 class Helper {
@@ -29,10 +30,63 @@ void help() {
         << Helper("stop [task_id]", "Stop a task")
         << Helper("status", "Report the status of all tasks")
         << Helper("status [task_id]", "Report the status of a single task")
-        << Helper("quit", "Shut down")
+        << Helper("quit", "Stop all tasks and exit application")
         << std::endl;
 }
 
+void command_loop() {
+
+    taskman::TaskMan man;
+
+    while(true) {
+        std::string command;
+        int argument;
+        bool argument_given = false;
+
+        std::cin >> command;
+
+
+        // There's more input
+        if(std::cin.peek() != '\n') {
+            std::cin >> argument;
+            argument_given = true;
+        }
+
+        // std::cin >> command;
+        // std::cin >> argument;
+
+        if(command == "help") {
+            help();
+        }
+        else if(command == "start") {
+            int id = argument_given ? man.start(argument) : man.start();
+            std::cout << "Started " << id << std::endl;
+        }
+        else if(command == "pause") {
+            bool success = man.pause(argument);
+            if(success) std::cout << "paused " << argument << std::endl;
+            else std::cout << "Failed to pause " << argument << std::endl;
+        }
+        else if(command == "stop") {
+            bool success = man.stop(argument);
+            if(success) std::cout << "Stopped " << argument << std::endl;
+            else std::cout << "Failed to stop " << argument << std::endl;
+        }
+        else if(command == "status") {
+            std::cout << "Status:" << std::endl;
+            auto ids = man.get_task_ids();
+            
+            for(int id : ids) {
+                auto t = man.get_task(id);
+                std::cout << t << std::endl;
+            }
+        }
+        else if(command == "quit") {
+            man.stop();
+            break;
+        }
+    }
+}
 
 int main(int argc, char **argv) {
 
@@ -46,26 +100,7 @@ int main(int argc, char **argv) {
         help();
     }
 
-    // taskman::TaskMan man;
-    // man.start(0);
-    // man.start(0);
-    // man.start(0);
-
-    // taskman::ITask* my_task = new examples::ArbritraryTask();
-    // man.start(std::shared_ptr<taskman::ITask>{my_task});
-
-
-    // std::cout << "Built-in task types:" << std::endl;
-    // for(const auto& [task_type_id, task_name] : man.get_task_types()) {
-    //     std::cout << task_type_id << '\t' << task_name << std::endl;
-    // }
-
-    // std::cout << "Running tasks:" << std::endl;
-    // for(int id: man.get_task_ids()) {
-
-    //     // Demonstrate ITask's ostream feature
-    //     std::cout << *man.get_task(id) << std::endl;
-    // }
+    command_loop();
 
     return 0;
 }
