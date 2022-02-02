@@ -54,7 +54,19 @@ void command_loop() {
             help();
         }
         else if(command == "start") {
-            int id = argument_given ? man.start(argument) : man.start();
+            int id;
+            if(argument_given) {
+                id = man.start(argument);
+            }
+            else {
+                // You can submit client defined tasks!
+                id = man.start(
+                    std::shared_ptr<taskman::ITask>(
+                        new examples::ArbritraryTask()
+                    )
+                );
+            }
+
             std::cout << "Started " << id << std::endl;
         }
         else if(command == "pause") {
