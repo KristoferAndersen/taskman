@@ -20,7 +20,7 @@ namespace taskman
 class HelloTask : public ITask
 {
  public:
-    HelloTask(int id) : ITask(id) {};
+    HelloTask(int id, std::string name) : ITask(id, name) {};
     void start();
 };
 

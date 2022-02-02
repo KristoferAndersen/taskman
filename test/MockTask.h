@@ -21,7 +21,7 @@ namespace taskman
 class MockTask : public ITask
 {
 public:
-    MockTask(int id) : ITask(id) {};  // TODO: FIX
+    MockTask(int id, std::string name) : ITask(id, name) {};  // TODO: FIX
     MOCK_METHOD(void, start, (), (override));
     MOCK_METHOD(int, get_id, (), ());
 };

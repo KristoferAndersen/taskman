@@ -3,14 +3,14 @@
 
 int main() {
     taskman::TaskMan man;
-    man.start(1);
-    man.start(2);
-    man.start(3);
+    man.start(0);
+    man.start(0);
+    man.start(0);
 
     std::cout << "Running tasks:" << std::endl;
     
     for(int id: man.get_task_ids()) {
-        std::cout << id << std::endl;
+        std::cout << *man.get_task(id) << std::endl;
     }
 
     return 0;

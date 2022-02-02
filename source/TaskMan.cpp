@@ -34,8 +34,12 @@ int TaskMan::start(int task_type_id) {
     return m_task_controller.start(task_type_id);
 }
 
+std::shared_ptr<ITask> TaskMan::get_task(int task_id) {
+    return m_task_controller.get_task(task_id);
+}
+
 std::vector<int> TaskMan::get_task_ids() {
-    return m_task_ids;
+    return m_task_controller.get_task_ids();
 }
 
 /*

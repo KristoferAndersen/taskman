@@ -17,16 +17,21 @@ namespace taskman
 * Constructors & Destructor
 */
 
-TaskFactory::TaskFactory()
-: m_tasks(Tasks()) {
-
+TaskFactory::TaskFactory() {
 }
 
 /*
 * Public members
 */
 std::shared_ptr<ITask> TaskFactory::create_task(int task_type_id, int task_id) {
-    ITask* t = new HelloTask(task_id);
+    ITask* t;
+
+    switch(task_type_id) {
+        case TaskTypes::HelloTask:
+            t = new taskman::HelloTask(task_id, "Hello task");
+            break;
+    }
+
     return std::shared_ptr<ITask>(t);
 }
 

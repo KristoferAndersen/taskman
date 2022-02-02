@@ -18,17 +18,15 @@
 namespace taskman
 {
 
-struct Tasks {
-   int HelloTask;
-};
-
 class TaskFactory
 {
 public:
    TaskFactory();
    virtual std::shared_ptr<ITask> create_task(int task_type_id, int task_id);
 
-   Tasks m_tasks;
+   enum TaskTypes {
+      HelloTask
+   } m_tasks;
 };
 
 } //taskman

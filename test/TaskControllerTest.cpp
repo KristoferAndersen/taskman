@@ -16,6 +16,10 @@
 namespace taskman {
 
 class TaskControllerTest : public ::testing::Test {
+// Unit testing logic-free controllers can be a poor time investment.
+// Think about why we are testing, and try to focus on test value.
+
+
  protected:
     // ARRANGE
     void SetUp() override {
@@ -25,7 +29,7 @@ class TaskControllerTest : public ::testing::Test {
     void TearDown() override {
     }
 
-    std::shared_ptr<MockTask> mock_task_{new MockTask(1)};
+    std::shared_ptr<MockTask> mock_task_{new MockTask(1, "Mock task")};
     std::shared_ptr<MockFactory> start_task_factory_{new MockFactory()};
     TaskController c{start_task_factory_, 10};
 };
@@ -66,5 +70,4 @@ TEST_F(TaskControllerTest, start_by_type_starts_factory_task) {
     EXPECT_EQ(c.get_task(id).get(), mock_task_.get());
     EXPECT_EQ(c.get_task_ids().size(), 1);
 }
-
 }  // namespace taskman

@@ -11,6 +11,7 @@
 * System header files
 */
 #include <vector>
+#include <memory>
 
 /*
 * Forward declarations
@@ -28,10 +29,10 @@ public:
     int start();
     int start(int task_type_id);
 
+    std::shared_ptr<ITask> get_task(int task_id);
     std::vector<int> get_task_ids();
 
 private:
-    std::vector<int> m_task_ids;
     TaskController m_task_controller;
 };
 
