@@ -12,6 +12,7 @@
 */
 #include <vector>
 #include <memory>
+#include <string>
 
 /*
 * Forward declarations
@@ -32,6 +33,7 @@ public:
 
     std::shared_ptr<ITask> get_task(int task_id);
     std::vector<int> get_task_ids();
+    std::map<int, std::string> get_task_types();
 
 private:
     TaskController m_task_controller;

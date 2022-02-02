@@ -16,6 +16,8 @@ namespace taskman
 * Constructors & Destructor
 */
 
+HelloTask::HelloTask(): ITask("HelloTask") {}
+
 // HelloTask::~HelloTask() = default;
 
 /*

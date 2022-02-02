@@ -23,7 +23,7 @@ namespace taskman
 class MockFactory : public TaskFactory
 {
 public:
-    MOCK_METHOD(std::shared_ptr<ITask>, create_task, (int task_type_id, int task_id), (override));
+    MOCK_METHOD(std::shared_ptr<ITask>, create_task, (int task_type_id), (override));
 };
 
 } //taskman

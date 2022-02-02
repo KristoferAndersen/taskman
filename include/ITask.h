@@ -20,18 +20,21 @@ namespace taskman
 class ITask
 {
 public:
-    ITask(int id, std::string name) : m_id(id), m_name(name) {};
+    ITask(std::string name) : m_name(name) {};
     //  virtual ~ITask();
     virtual void start() = 0;
-    int get_id() { return m_id; }
+    void set_id(int task_id) { m_id = task_id; };
+    int get_id() { return m_id; };
     friend std::ostream& operator<<(std::ostream& os, const ITask& t) {
-        std::cout << t.m_id << "\t" << t.m_name << "\tRUNNING" << "\t100%";
+        os << t.m_id << "\t" << t.m_name << "\tRUNNING" << "\t100%";
         return os;
     }
 
 
 private:
     ITask();  // Prevent use of default constructor
+    ITask(int id);
+
     int m_id;
     std::string m_name;
 };

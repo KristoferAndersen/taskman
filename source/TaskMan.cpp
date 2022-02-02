@@ -19,9 +19,7 @@ TaskMan::TaskMan()
     : m_task_controller(std::shared_ptr<TaskFactory>(new TaskFactory()), 10000) {
 }
 
-TaskMan::~TaskMan() {
-    // Task controller claims ownership of the taskfactory
-}
+TaskMan::~TaskMan() {}
 
 /*
 * Public members
@@ -45,6 +43,10 @@ std::shared_ptr<ITask> TaskMan::get_task(int task_id) {
 
 std::vector<int> TaskMan::get_task_ids() {
     return m_task_controller.get_task_ids();
+}
+
+std::map<int, std::string> TaskMan::get_task_types() {
+    return m_task_controller.get_task_types();
 }
 
 /*

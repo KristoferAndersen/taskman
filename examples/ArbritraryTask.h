@@ -20,7 +20,7 @@ namespace examples
 class ArbritraryTask : public taskman::ITask
 {
 public:
-    ArbritraryTask(int id, std::string name) : taskman::ITask(id, name) {};
+    ArbritraryTask() : taskman::ITask("Some other task") {};
     void start() { std::cout << "Something else!" << std::endl; }
 };
 

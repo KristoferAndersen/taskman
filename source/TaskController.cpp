@@ -18,12 +18,16 @@ namespace taskman
 */
 
 TaskController::TaskController()
-    : m_task_factory(nullptr), TASK_LIMIT(10000) {
-
-    }
+    : TaskController(nullptr, 10000)
+{
+}
 
 TaskController::TaskController(const std::shared_ptr<TaskFactory> &task_factory, int task_limit)
-    : m_task_factory(task_factory), TASK_LIMIT(task_limit) {
+    : m_task_factory(task_factory), TASK_LIMIT(task_limit)
+{
+    task_whitelist = {
+        "HelloTask"
+    };
 }
 
 TaskController::~TaskController() {
@@ -34,25 +38,24 @@ TaskController::~TaskController() {
 */
 
 int TaskController::start() {
-    return start(0);
+    // TODO: randomize from menu
+    return start(m_task_factory->HelloTask);
 }
 
 int TaskController::start(int task_type_id) {
 
-    // TODO: ID generator
-    int task_id = create_id();
-
     // Create and remember task
-    std::shared_ptr<ITask> task = m_task_factory->create_task(task_type_id, task_id);
-
+    std::shared_ptr<ITask> task = m_task_factory->create_task(task_type_id);
     return start(task);
 }
 
 int TaskController::start(std::shared_ptr<ITask> task) {
-    int task_id = task->get_id();
+    int task_id = create_id();
+
     m_task_ids.push_back(task_id);
     m_tasks[task_id] = task;
 
+    task->set_id(task_id);
     task->start();
 
     // Return ID of new task
@@ -65,6 +68,11 @@ std::shared_ptr<ITask> TaskController::get_task(int task_id) {
 
 std::vector<int> TaskController::get_task_ids() {
     return m_task_ids;
+}
+
+std::map<int, std::string> TaskController::get_task_types() {
+    // We can add the whitelist here.
+    return m_task_factory->m_named_tasks;
 }
 
 /*
