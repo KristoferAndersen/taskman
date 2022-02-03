@@ -112,9 +112,8 @@ A `Taskfactory` is simply provided during the controller's construction.
 This allows a test to easily separate functionality and mock that which is not to the subject of the test.
 
 ## Further work
-As mentioned in the testing chapter. Testing is mostly a demonstration, and can be improved.
-The project can be polished further.
-Further additions such as more task types, using different types of async behaviors would make the project feel more complete.
-The code could also use a good linting.
-
-Some improvements are described in comments which I've allowed myself to leave.
+- As mentioned in the testing chapter. Testing is motly a demonstration, and can be improved.
+- Further project polish including a good code linting.
+- Further additions such as more task types, using different types of async behaviors would make the project feel more complete.
+- Various improvements are described in comments which I've allowed myself to leave.
+- There exists some bad input that `taskmanCLI` can't handle, but the example is not really the emphasis here.
