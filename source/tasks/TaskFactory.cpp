@@ -25,7 +25,7 @@ TaskFactory::TaskFactory() {
 * Public members
 */
 std::shared_ptr<ITask> TaskFactory::create_task(int task_type_id) {
-    ITask* t;
+    ITask* t = nullptr;
 
     switch(task_type_id) {
         case TaskTypes::ThinkTask:

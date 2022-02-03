@@ -24,12 +24,8 @@ TaskMan::~TaskMan() {}
 /*
 * Public members
 */
-int TaskMan::start() {
-    return start(0);
-}
 
 int TaskMan::start(int task_type_id) {
-    // TODO: Change to create and reuse task submit?
     return m_task_controller.start(task_type_id);
 }
 

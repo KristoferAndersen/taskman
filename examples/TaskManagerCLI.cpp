@@ -60,8 +60,13 @@ struct Action {
             );
         }
 
-        auto task = m.get_task(id);
-        std::cout << "Started a '" << task->get_name() <<  "' with id " << id << std::endl;
+        if(id != -1) {
+            auto task = m.get_task(id);
+            std::cout << "Started a '" << task->get_name() <<  "' with id " << id << std::endl;
+        }
+        else {
+            std::cout << "Failed to start task. Type \"help\" to see accepted command formats" << std::endl;
+        }
     }
 
     static void pause(M m, Arg a) {
@@ -134,6 +139,7 @@ void command_loop() {
         std::vector<int> args;
         int arg;
 
+        std::cout << "Enter command:" << std::endl;
         std::cin >> command;
 
         // There's more input
@@ -141,6 +147,10 @@ void command_loop() {
             std::cin >> arg;
             args.push_back(arg);
         }
+
+        // Clear any garbage input
+        std::cin.clear();
+        std::fflush(stdin);
 
         if(command == "help") {
             help();
@@ -168,7 +178,7 @@ void command_loop() {
             break;
         }
         else {
-            std::cout << "Command not recognized" << std::endl;
+            std::cout << "Command not recognized. Type \"help\" to see accepted command formats" << std::endl;
         }
 
         std::cout << std::endl;
@@ -176,7 +186,6 @@ void command_loop() {
 }
 
 int main(int argc, char **argv) {
-
     // Help is the only command, so any arg prompts help
     // TODO: Accept runtime commands as arguments
     if(argc > 1) {
