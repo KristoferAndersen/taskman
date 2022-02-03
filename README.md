@@ -35,7 +35,7 @@ The API is simple and the header file should describe it adequately.
 
 This brings us to installation.
 
-The following command can be used to install the library in `/usr/local/lib/`, although the path may differ depending on platform and CMake configuration.
+The following command can be used to install the library in `/usr/local/`, although the path may differ depending on platform and CMake configuration.
 This may require superuser access. Further arguments can be used to install the library elsewhere, refer to CMake documentation if required.
 
     pwd  # [project root]/build/
