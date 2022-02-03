@@ -7,10 +7,10 @@
 #include <string.h>
 
 
-class Helper {
+class Format {
 public:
-    Helper(std::string option, std::string comment) : s1(option), s2(comment) {}
-    friend std::ostream& operator<<(std::ostream& out, const Helper& h) {
+    Format(std::string option, std::string comment) : s1(option), s2(comment) {}
+    friend std::ostream& operator<<(std::ostream& out, const Format& h) {
         out << '\t' << std::setw(20) << std::left << h.s1 << '\t' << h.s2 << std::endl;
         return out;
     };
@@ -22,20 +22,29 @@ void help() {
     std::cout << "Usage:" << std::endl
         << "Launch the application without arguments." << std::endl
         << "Once running, the following commands are accepted:" << std::endl << std::endl
-        << Helper("help", "Display this message")
-        << Helper("start", "Starts a random task and print its ID")
-        << Helper("start [task_type_id]", "Starts a task of a given type and prints its ID")
-        << Helper("pause [task_id]", "Pause a task")
-        << Helper("stop [task_id]", "Stop a task")
-        << Helper("status", "Report the status of all tasks")
-        << Helper("status [task_id]", "Report the status of a single task")
-        << Helper("quit", "Stop all tasks and exit application")
+        << Format("Command", "Description")
+        << Format("help", "Display this message")
+        << Format("list", "List built in task types")
+        << Format("start", "Starts our own example task and prints its ID")
+        << Format("start [task_type_id]", "Starts a task of a given type and prints its ID")
+        << Format("pause [task_id]", "Pause a task")
+        << Format("stop [task_id]", "Stop a task")
+        << Format("status", "Report the status of all tasks")
+        << Format("status [task_id]", "Report the status of a single task")
+        << Format("quit", "Stop all tasks and exit application")
         << std::endl;
 }
 
 struct Action {
     typedef taskman::TaskMan& M;
     typedef std::vector<int>& Arg;
+
+    static void list(M m, Arg a) {
+        std::cout << Format("task_type_id", "task_type");
+        for(const auto& [id, type] : m.get_task_types()) {
+            std::cout << Format(std::to_string(id), type);
+        }
+    }
 
     static void start(M m, Arg a) {
         int id;
@@ -123,6 +132,9 @@ void command_loop() {
 
         if(command == "help") {
             help();
+        }
+        else if(command == "list") {
+            Action::list(man, args);
         }
         else if(command == "start") {
             Action::start(man, args);
