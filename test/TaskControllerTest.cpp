@@ -40,9 +40,6 @@ protected:
         EXPECT_CALL(*mock_task, start()).Times(1);
         EXPECT_CALL(*mock_task, stop()).Times(1);
     }
-
-    void TearDown() override {
-    }
 };
 
 TEST_F(TaskControllerTest, no_initial_tasks) {
@@ -57,7 +54,7 @@ TEST_F(TaskControllerTest, start_task_null_returns_non_id) {
     EXPECT_EQ(id, -1) << "Controller returned valid ID for an invalid task";
 }
 
-TEST_F(TaskControllerTest, pause_invalid_id_fails) {
+TEST_F(TaskControllerTest, pause_invalid_id) {
     // ACT
     bool success = c.pause(-1);
 
@@ -65,7 +62,7 @@ TEST_F(TaskControllerTest, pause_invalid_id_fails) {
     EXPECT_EQ(success, false) << "Controller paused invalid ID";
 }
 
-TEST_F(TaskControllerTest, resume_invalid_id_fails) {
+TEST_F(TaskControllerTest, resume_invalid_id) {
     // ACT
     bool success = c.resume(-1);
 
@@ -73,12 +70,20 @@ TEST_F(TaskControllerTest, resume_invalid_id_fails) {
     EXPECT_EQ(success, false) << "Controller resumed invalid ID";
 }
 
-TEST_F(TaskControllerTest, stop_invalid_id_fails) {
+TEST_F(TaskControllerTest, stop_invalid_id) {
     // ACT
     bool success = c.stop(-1);
 
     // ASSERT
     EXPECT_EQ(success, false) << "Controller stopped invalid ID";
+}
+
+TEST_F(TaskControllerTest, get_task_invalid_id) {
+    // ACT
+    auto task = c.get_task(99);
+
+    // ASSERT
+    EXPECT_EQ(task.get(), nullptr) << "Controller returned a task with a bad ID request";
 }
 
 TEST_F(TaskControllerTest, start_type_invalid_returns_non_id) {

@@ -98,7 +98,9 @@ bool TaskController::stop(int task_id) {
 }
 
 std::shared_ptr<ITask> TaskController::get_task(int task_id) {
-    return m_tasks[task_id]; // TODO: Bad key check
+    if(!task_exists(task_id)) { return nullptr; }
+
+    return m_tasks[task_id];
 }
 
 std::vector<int> TaskController::get_task_ids() {
@@ -121,7 +123,7 @@ bool TaskController::task_exists(int task_id) {
 * Private members
 */
 int TaskController::create_id() {
-    // Initial functionality just increments from 0
+    // Basic incrementing functionality
     return m_task_ids.size() == 0 ? 0 : m_task_ids[m_task_ids.size()-1]+1;
 }
 
