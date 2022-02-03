@@ -21,7 +21,7 @@ class ArbritraryTask : public taskman::ITask
 {
 public:
     ArbritraryTask() : taskman::ITask("Some other task") {};
-    void start() { std::cout << "Something else!" << std::endl; }
+    void do_work() { std::cout << "Arbritrary tasks are also working!" << std::endl; }
 };
 
 } //examples

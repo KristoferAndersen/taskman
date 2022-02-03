@@ -38,13 +38,11 @@ public:
     std::vector<int> get_task_ids();
 
 private:
-
-    std::shared_ptr<TaskFactory> m_task_factory;
-    const int TASK_LIMIT;
-
     int create_id();
     
-    std::vector<std::string> task_whitelist;
+    std::shared_ptr<TaskFactory> m_task_factory;
+    const int TASK_LIMIT;
+    std::vector<int> task_whitelist;
     std::vector<int> m_task_ids;
     std::map<int, std::shared_ptr<ITask>> m_tasks;
 };

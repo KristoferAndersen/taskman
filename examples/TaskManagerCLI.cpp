@@ -61,7 +61,7 @@ struct Action {
         }
 
         bool success = m.pause(a[0]);
-        if(success) std::cout << "paused " << a[0] << std::endl;
+        if(success) std::cout << "Paused " << a[0] << std::endl;
         else std::cout << "Failed to pause " << a[0] << std::endl;
     }
 

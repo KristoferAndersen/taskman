@@ -21,7 +21,7 @@ class HelloTask : public ITask
 {
  public:
     HelloTask();
-    void start();
+    void do_work();
 };
 
 } //taskman

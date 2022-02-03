@@ -25,8 +25,11 @@ TaskController::TaskController()
 TaskController::TaskController(const std::shared_ptr<TaskFactory> &task_factory, int task_limit)
     : m_task_factory(task_factory), TASK_LIMIT(task_limit)
 {
+
+    // We're not using this
+    // I'm leaving it as an example
     task_whitelist = {
-        "HelloTask"
+        m_task_factory->HelloTask
     };
 }
 

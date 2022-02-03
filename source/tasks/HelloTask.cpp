@@ -23,8 +23,8 @@ HelloTask::HelloTask(): ITask("HelloTask") {}
 /*
 * Public members
 */
-void HelloTask::start() {
-    std::cout << "Hello!" << std::endl;
+void HelloTask::do_work() {
+    std::cout << "Hey, I'm working!" << std::endl;
 }
 
 /*
