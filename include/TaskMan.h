@@ -31,6 +31,7 @@ public:
     int start(int task_type_id);
     int start(std::shared_ptr<ITask> task);
     bool pause(int task_id);
+    bool resume(int task_id);
     bool stop();
     bool stop(int task_id);
 

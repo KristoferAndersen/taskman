@@ -41,6 +41,10 @@ bool TaskMan::pause(int task_id) {
     return m_task_controller.pause(task_id);
 }
 
+bool TaskMan::resume(int task_id) {
+    return m_task_controller.resume(task_id);
+}
+
 bool TaskMan::stop() {
     bool success = true;
 

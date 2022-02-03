@@ -7,7 +7,7 @@
 /*
 * System header files
 */
-// #include <iostream>
+#include <iostream>
 #include <fstream>
 
 namespace taskman
@@ -25,23 +25,29 @@ ThinkTask::ThinkTask(): ITask("ThinkTask") {}
 * Public members
 */
 void ThinkTask::do_work() {
-
     // Dummy taks, keep it simple
+
     int thinking_time = 500;
-    std::string thinking_file = "../../logs/thoughts" + std::to_string(get_id()) + ".txt";
+    int target_thoughts = 100;
+    int thoughts = 0;
+    std::string thinking_file = "/tmp/thoughts" + std::to_string(get_id()) + ".txt";
     std::ofstream file(thinking_file);
 
-    for(int i = 0; i < 100; i++) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(thinking_time));
+    while(m_command != TaskCommands::Stop && thoughts < target_thoughts){
+        if(m_command == TaskCommands::Pause) { std::this_thread::sleep_for(std::chrono::milliseconds(100)); }
 
-        if(file.is_open()) {
-            file << "HMM" << std::endl;
+        if(m_command == TaskCommands::Run) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(thinking_time));
+
+            if(file.is_open()) {
+                file << "HMM" << std::endl;
+                thoughts++;
+            }
+            else {
+                std::cerr << "Could not open file '" << thinking_file << std::endl;
+                return;
+            }
         }
-        else {
-            std::cerr << "Could not open file '" << thinking_file << std::endl;
-            return;
-        }
-        
     }
 
     file.close();

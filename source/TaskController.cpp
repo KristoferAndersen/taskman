@@ -34,6 +34,11 @@ TaskController::TaskController(const std::shared_ptr<TaskFactory> &task_factory,
 }
 
 TaskController::~TaskController() {
+    const auto& task_ids = get_task_ids();
+
+    for(int id : task_ids) {
+        stop(id);
+    }
 }
 
 /*
@@ -61,11 +66,18 @@ int TaskController::start(std::shared_ptr<ITask> task) {
 }
 
 bool TaskController::pause(int task_id) {
+    get_task(task_id)->pause();
+    return false;
+}
+
+bool TaskController::resume(int task_id) {
+    get_task(task_id)->resume();
     return false;
 }
 
 bool TaskController::stop(int task_id) {
-    return false;
+    get_task(task_id)->stop();
+    return false;  // TODO: Watch status flag
 }
 
 std::shared_ptr<ITask> TaskController::get_task(int task_id) {

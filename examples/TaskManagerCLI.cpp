@@ -65,6 +65,17 @@ struct Action {
         else std::cout << "Failed to pause " << a[0] << std::endl;
     }
 
+    static void resume(M m, Arg a) {
+        if(a.size() != 1) {  // TODO: Do this in a function
+            std::cout << "Task ID expected. Type \"help\" to see accepted command formats" << std::endl;
+            return;
+        }
+
+        bool success = m.resume(a[0]);
+        if(success) std::cout << "Resumed " << a[0] << std::endl;
+        else std::cout << "Failed to resume " << a[0] << std::endl;
+    }
+
     static void stop(M m, Arg a) {
         if(a.size() != 1) {
             std::cout << "Task ID expected. Type \"help\" to see accepted command formats" << std::endl;
@@ -118,6 +129,9 @@ void command_loop() {
         }
         else if(command == "pause") {
             Action::pause(man, args);
+        }
+        else if(command == "resume") {
+            Action::resume(man, args);
         }
         else if(command == "stop") {
             Action::stop(man, args);

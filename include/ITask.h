@@ -39,6 +39,7 @@ public:
 
     // These methods are not to be overriden.
     void start() { m_command = TaskCommands::Run; run(); }
+    void resume() { m_command = TaskCommands::Run; }
     void pause() { m_command = TaskCommands::Pause; }
     void stop() { m_command = TaskCommands::Stop; }
     void set_id(int task_id) { m_id = task_id; }
@@ -61,7 +62,7 @@ public:
     }
 
 
-private:
+protected:
     ITask();  // Prevent use of default constructor
     ITask(int id);
 
