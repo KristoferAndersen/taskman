@@ -55,6 +55,8 @@ int TaskController::start(int task_type_id) {
 }
 
 int TaskController::start(std::shared_ptr<ITask> task) {
+    if(task == nullptr) { return -1; }
+
     int task_id = create_id();
 
     m_task_ids.push_back(task_id);

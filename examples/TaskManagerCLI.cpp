@@ -60,7 +60,8 @@ struct Action {
             );
         }
 
-        std::cout << "Started a task with id " << id << std::endl;
+        auto task = m.get_task(id);
+        std::cout << "Started a '" << task->get_name() <<  "' with id " << id << std::endl;
     }
 
     static void pause(M m, Arg a) {

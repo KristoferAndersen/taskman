@@ -21,6 +21,11 @@ class ArbritraryTask : public taskman::ITask
 {
 public:
     ArbritraryTask() : taskman::ITask("Some other task") {};
+
+    void run() {
+        m_thread = std::thread(&ITask::do_work, this);
+    }
+
     void do_work() {
         // The task completes instantly.
         // It just demonstrates that you can define

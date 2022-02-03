@@ -21,9 +21,9 @@ class TaskControllerTest : public ::testing::Test {
 // Base class testing
  protected:
     // ARRANGE
-    std::shared_ptr<MockTask> mock_task_{new MockTask()};
-    std::shared_ptr<MockFactory> start_task_factory_{new MockFactory()};
-    TaskController c{start_task_factory_, 10};
+    std::shared_ptr<MockTask> mock_task{new MockTask()};
+    std::shared_ptr<MockFactory> start_task_factory{new MockFactory()};
+    TaskController c{start_task_factory, 10};
 };
 
 class TaskControllerStartTest : public TaskControllerTest {
@@ -34,21 +34,31 @@ protected:
         // ASSERT
 
         // Return the mock task
-        EXPECT_CALL(*start_task_factory_, create_task(testing::_)).WillRepeatedly(testing::Return(mock_task_));
+        EXPECT_CALL(*start_task_factory, create_task(testing::_)).WillRepeatedly(testing::Return(mock_task));
 
         // Returned task should always be started, and its ID should be set.
-        EXPECT_CALL(*mock_task_, start()).Times(1);
+        EXPECT_CALL(*mock_task, start()).Times(1);
+        EXPECT_CALL(*mock_task, stop()).Times(1);
     }
 
     void TearDown() override {
     }
 };
 
+
 TEST_F(TaskControllerTest, no_initial_tasks) {
     EXPECT_EQ(c.get_task_ids().size(), 0) << "Incorrect initial number of tasks";
 }
 
-TEST_F(TaskControllerStartTest, start_by_type_records_task) {
+TEST_F(TaskControllerTest, start_task_null_returns_non_id) {
+    // ACT
+    int id = c.start(std::shared_ptr<ITask>(nullptr));
+
+    // ASSERT
+    EXPECT_EQ(id, -1) << "Controller returned valid ID for an invalid task";
+}
+
+TEST_F(TaskControllerStartTest, start_type_records_task) {
     // ACT
     int expected_id = c.start(1);
     auto tasks = c.get_task_ids();
@@ -58,12 +68,13 @@ TEST_F(TaskControllerStartTest, start_by_type_records_task) {
     EXPECT_EQ(tasks[0], expected_id) << "Returned ID does not match recorded ID";
 }
 
-TEST_F(TaskControllerStartTest, start_by_type_starts_factory_task) {
+TEST_F(TaskControllerStartTest, start_type_starts_factorytask) {
     // ACT
     int id = c.start(1);
 
     // ASSERT
-    EXPECT_EQ(c.get_task(id).get(), mock_task_.get());
+    EXPECT_EQ(c.get_task(id).get(), mock_task.get());
     EXPECT_EQ(c.get_task_ids().size(), 1);
 }
+
 }  // namespace taskman

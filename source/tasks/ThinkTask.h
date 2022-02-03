@@ -23,6 +23,10 @@ class ThinkTask : public ITask
 {
  public:
     ThinkTask();
+    ~ThinkTask();
+
+    // Tasks like these can be inherited further to re-use the async approach
+    void run();
     void do_work();
 };
 

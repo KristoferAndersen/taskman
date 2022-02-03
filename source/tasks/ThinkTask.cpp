@@ -19,11 +19,17 @@ namespace taskman
 
 ThinkTask::ThinkTask(): ITask("ThinkTask") {}
 
-// ThinkTask::~ThinkTask() = default;
+ThinkTask::~ThinkTask() {
+    m_thread.join();
+};
 
 /*
 * Public members
 */
+void ThinkTask::run() {
+    m_thread = std::thread(&ITask::do_work, this);
+}
+
 void ThinkTask::do_work() {
     // Dummy taks, keep it simple
 
