@@ -30,6 +30,9 @@ At this point, you should have built:
 - The `taskmanCLI` command line interface application - Found in `/build/examples/`.
 
 The latter two can be executed directly on the command line, but the shared `taskman.so` library must be linked into whichever application will make use of it.
+Once linked, the library is used by instantiating a `taskman::TaskMan` object. The header file can be found in the `include/` directory.
+The API is simple and the header file should describe it adequately.
+
 This brings us to installation.
 
 The following command can be used to install the library in `/usr/local/lib/`, although the path may differ depending on platform and CMake configuration.
