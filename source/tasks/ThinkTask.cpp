@@ -20,6 +20,7 @@ namespace taskman
 ThinkTask::ThinkTask(): ITask("ThinkTask") {}
 
 ThinkTask::~ThinkTask() {
+    stop();
     m_thread.join();
 };
 

@@ -74,9 +74,8 @@ bool TaskController::pause(int task_id) {
 
     auto task = get_task(task_id);
     task->pause();
-    // TODO: Need better awaits
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    return task->get_status() == TaskStates::Paused;
+
+    return wait_for_status(task, TaskStates::Paused, 2000);
 }
 
 bool TaskController::resume(int task_id) {
@@ -84,8 +83,8 @@ bool TaskController::resume(int task_id) {
 
     auto task = get_task(task_id);
     task->resume();
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    return task->get_status() == TaskStates::Running;
+
+    return wait_for_status(task, TaskStates::Running, 2000);
 }
 
 bool TaskController::stop(int task_id) {
@@ -93,8 +92,8 @@ bool TaskController::stop(int task_id) {
 
     auto task = get_task(task_id);
     task->stop();
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    return task->get_status() == TaskStates::Stopped;
+
+    return wait_for_status(task, TaskStates::Stopped, 2000);
 }
 
 std::shared_ptr<ITask> TaskController::get_task(int task_id) {
@@ -125,6 +124,22 @@ bool TaskController::task_exists(int task_id) {
 int TaskController::create_id() {
     // Basic incrementing functionality
     return m_task_ids.size() == 0 ? 0 : m_task_ids[m_task_ids.size()-1]+1;
+}
+
+bool TaskController::wait_for_status(std::shared_ptr<ITask> task, int status, int timeout)
+{
+    int waited = 0;
+    int wait_step = 50;
+    while(waited < timeout) {
+        if(task->get_status() == status) {
+            return true;
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(wait_step));  
+        waited += wait_step;
+    }
+
+    return false;
 }
 
 
