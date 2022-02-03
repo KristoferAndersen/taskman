@@ -16,7 +16,7 @@ add_library(${PROJECT_NAME} SHARED
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-                      PUBLIC_HEADER include/TaskMan.h)
+                      PUBLIC_HEADER "include/TaskMan.h;include/ITask.h")
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
@@ -25,7 +25,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE Threads::Threads)
 include_directories(${PROJECT_NAME} PRIVATE include)
 include_directories(${PROJECT_NAME} PRIVATE source)
 include_directories(${PROJECT_NAME} PRIVATE examples)
-
 
 install(TARGETS ${PROJECT_NAME}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
