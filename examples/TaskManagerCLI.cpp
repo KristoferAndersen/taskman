@@ -122,6 +122,9 @@ struct Action {
 
         for(int id : task_ids) {
             auto t = m.get_task(id);
+            if(t == nullptr) {
+                return;
+            }
             
             std::cout << std::setw(12) << t->get_id()
                   << std::setw(32) << t->get_name()
