@@ -7,8 +7,6 @@
 /*
 * System header files
 */
-// TODO: Remove
-#include <iostream>
 #include <thread>
 #include <chrono>
 

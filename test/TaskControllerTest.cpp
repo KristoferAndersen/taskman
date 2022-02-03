@@ -9,10 +9,6 @@
 #include <vector>
 #include <memory>
 
-
-// TODO: REMOVE ME
-#include <iostream>
-
 namespace taskman {
 // Unit testing logic-free controllers can be a poor time investment.
 // Think about why we are testing, and try to focus on test value.

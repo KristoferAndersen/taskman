@@ -82,7 +82,7 @@ struct Action {
     }
 
     static void resume(M m, Arg a) {
-        if(a.size() != 1) {  // TODO: Do this in a function
+        if(a.size() != 1) {
             std::cout << "Task ID expected. Type \"help\" to see accepted command formats" << std::endl;
             return;
         }

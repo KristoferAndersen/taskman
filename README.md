@@ -100,8 +100,16 @@ The status flags are defined in the `ITask` header file by the `TaskStates` enum
 Testing consists of unit testing with Google Test.
 These are defined in the `test` directory.
 
+To run the unit tests, refer to the build/run chapter.
+
 The testing that is performed is a demonstration, only the `TaskController` is tested. Further unit tests for classes such as `TaskFactory` would be advisable for any serious project. Additionally, Google Test is not limited to just unit tests, adding integration tests would be a good idea.
 
 The existing tests demonstrate how the `TaskController` becomes more testable through dependency injection.
 A `Taskfactory` is simply provided during the controller's construction.
 This allows a test to easily separate functionality and mock that which is not to the subject of the test.
+
+## Further work
+As mentioned in the testing chapter. Testing is mostly a demonstration, and can be improved.
+The project can be polished further.
+
+I've allowed myself to leave comments in the code describing some improvements and TODOs.
