@@ -10,6 +10,7 @@
 */
 #include <iostream>
 #include <thread>
+#include <map>
 
 /*
 * Forward declarations
@@ -34,7 +35,12 @@ enum TaskCommands {
 class ITask
 {
 public:
-    ITask(std::string name) : m_name(name), m_status(TaskStates::Paused), m_command(TaskCommands::Pause) {}
+    ITask(std::string name) : m_name(name), m_status(TaskStates::Paused), m_command(TaskCommands::Pause) {
+        m_status_strings[TaskStates::Paused] = "Paused";
+        m_status_strings[TaskStates::Running] = "Running";
+        m_status_strings[TaskStates::Stopped] = "Stopped";
+        m_status_strings[TaskStates::Completed] = "Completed";
+    }
     virtual ~ITask() { m_thread.join(); }
 
     // These methods are not to be overriden.
@@ -42,8 +48,12 @@ public:
     void resume() { m_command = TaskCommands::Run; }
     void pause() { m_command = TaskCommands::Pause; }
     void stop() { m_command = TaskCommands::Stop; }
+
     void set_id(int task_id) { m_id = task_id; }
     int get_id() { return m_id; }
+    std::string get_name() { return m_name; }
+    int get_status() { return m_status; }
+    std::string get_status_string() { return m_status_strings[m_status]; }
 
     // Runs "do_work" asynchronously. Can be overriden to use different threading approaches.
     virtual void run() {
@@ -51,13 +61,12 @@ public:
     }
 
     // The task. Must be defined by concrete task objects.
-    // Must monitor m_command
-    // ITask::do_work is not purely virtual so that this dud can be called by the default runner
+    // Must monitor m_command to enable task control functions.
     virtual void do_work() {};
 
 
-    friend std::ostream& operator<<(std::ostream& os, const ITask& t) {
-        os << t.m_id << "\t" << t.m_name << "\tRUNNING" << "\t100%";
+    friend std::ostream& operator<<(std::ostream& os, ITask& t) {
+        os << t.m_id << "\t" << t.m_name << '\t' << t.get_status_string() << "\t100%";
         return os;
     }
 
@@ -71,6 +80,8 @@ protected:
     int m_status;
     int m_command;
     std::thread m_thread;
+
+    std::map<int, std::string> m_status_strings;
 };
 
 } //taskman

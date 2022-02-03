@@ -9,6 +9,8 @@
 */
 // TODO: Remove
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 namespace taskman
 {
@@ -66,18 +68,24 @@ int TaskController::start(std::shared_ptr<ITask> task) {
 }
 
 bool TaskController::pause(int task_id) {
-    get_task(task_id)->pause();
-    return false;
+    auto task = get_task(task_id);
+    task->pause();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    return task->get_status() == TaskStates::Paused;
 }
 
 bool TaskController::resume(int task_id) {
-    get_task(task_id)->resume();
-    return false;
+    auto task = get_task(task_id);
+    task->resume();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    return task->get_status() == TaskStates::Running;
 }
 
 bool TaskController::stop(int task_id) {
-    get_task(task_id)->stop();
-    return false;  // TODO: Watch status flag
+    auto task = get_task(task_id);
+    task->stop();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    return task->get_status() == TaskStates::Stopped;
 }
 
 std::shared_ptr<ITask> TaskController::get_task(int task_id) {

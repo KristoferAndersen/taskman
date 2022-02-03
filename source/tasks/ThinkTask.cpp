@@ -33,10 +33,20 @@ void ThinkTask::do_work() {
     std::string thinking_file = "/tmp/thoughts" + std::to_string(get_id()) + ".txt";
     std::ofstream file(thinking_file);
 
-    while(m_command != TaskCommands::Stop && thoughts < target_thoughts){
-        if(m_command == TaskCommands::Pause) { std::this_thread::sleep_for(std::chrono::milliseconds(100)); }
+    while(thoughts < target_thoughts){
+        if(m_command == TaskCommands::Stop) {
+            m_status = TaskStates::Stopped;
+            file.close();
+            return;
+        }
+
+        if(m_command == TaskCommands::Pause) {
+            m_status = TaskStates::Paused;
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
 
         if(m_command == TaskCommands::Run) {
+            m_status = TaskStates::Running;
             std::this_thread::sleep_for(std::chrono::milliseconds(thinking_time));
 
             if(file.is_open()) {
@@ -44,13 +54,14 @@ void ThinkTask::do_work() {
                 thoughts++;
             }
             else {
-                std::cerr << "Could not open file '" << thinking_file << std::endl;
+                std::cerr << "Could not open file '" << thinking_file << "'" << std::endl;
                 return;
             }
         }
     }
 
     file.close();
+    m_status = TaskStates::Completed;
 }
 
 /*
