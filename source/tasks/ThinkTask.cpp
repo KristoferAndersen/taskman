@@ -32,7 +32,7 @@ void ThinkTask::run() {
 }
 
 void ThinkTask::do_work() {
-    // Dummy taks, keep it simple
+    // Dummy task, keep it simple
 
     int thinking_time = 500;
     int target_thoughts = 100;

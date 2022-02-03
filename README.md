@@ -1,5 +1,7 @@
 # Taskman
-Taskman is an asynchronous task management library. It provides an API to control any task object that inherits from the `ITask` interface, which is defined in `include/ITask.h`. The library accepts both built-in and client-defined task types.
+Taskman is an asynchronous task management library. It provides an API to control any task object that inherits from the `ITask` interface, which is defined in `include/ITask.h`. The library accepts both built-in and client-defined task types. Two example tasks are included:
+- `ThinkTask` is built into the library. It prints thoughts into a text file in `/tmp/`. The task has a 50 second runtime.
+- `AbritraryTask` is included in the `examples/` directory. `taskmanCLI` can submit this task as a demonstration of client-defined tasks. This task is trivial and finishes after one print command.
 
 ## Requirements
 - CMake 3.14 or higher
