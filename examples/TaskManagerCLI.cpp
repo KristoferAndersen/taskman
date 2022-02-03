@@ -28,6 +28,7 @@ void help() {
         << Format("start", "Starts our own example task and prints its ID")
         << Format("start [task_type_id]", "Starts a task of a given type and prints its ID")
         << Format("pause [task_id]", "Pause a task")
+        << Format("resume [task_id]", "Resume a paused task")
         << Format("stop [task_id]", "Stop a task")
         << Format("status", "Report the status of all tasks")
         << Format("status [task_id]", "Report the status of a single task")
