@@ -60,7 +60,7 @@ struct Action {
             );
         }
 
-        std::cout << "Started " << id << std::endl;
+        std::cout << "Started a task with id " << id << std::endl;
     }
 
     static void pause(M m, Arg a) {
@@ -70,8 +70,8 @@ struct Action {
         }
 
         bool success = m.pause(a[0]);
-        if(success) std::cout << "Paused " << a[0] << std::endl;
-        else std::cout << "Failed to pause " << a[0] << std::endl;
+        if(success) std::cout << "Paused task " << a[0] << std::endl;
+        else std::cout << "Failed to pause task " << a[0] << std::endl;
     }
 
     static void resume(M m, Arg a) {
@@ -81,8 +81,8 @@ struct Action {
         }
 
         bool success = m.resume(a[0]);
-        if(success) std::cout << "Resumed " << a[0] << std::endl;
-        else std::cout << "Failed to resume " << a[0] << std::endl;
+        if(success) std::cout << "Resumed task " << a[0] << std::endl;
+        else std::cout << "Failed to resume task " << a[0] << std::endl;
     }
 
     static void stop(M m, Arg a) {
@@ -92,8 +92,8 @@ struct Action {
         }
 
         bool success = m.stop(a[0]);
-        if(success) std::cout << "Stopped " << a[0] << std::endl;
-        else std::cout << "Failed to stop " << a[0] << std::endl;
+        if(success) std::cout << "Stopped task " << a[0] << std::endl;
+        else std::cout << "Failed to stop task " << a[0] << std::endl;
     }
 
     static void status(M m, Arg a) {
@@ -106,9 +106,20 @@ struct Action {
             task_ids = m.get_task_ids();
         }
 
+        // Using a formatter would be nice,
+        //  but I'll let this suffice.
+        std::cout << std::setw(12) << "task_id"
+                  << std::setw(32) << "Task name"
+                  << std::setw(12) << "Task state"
+                                   << "Progress" << std::endl;;
+
         for(int id : task_ids) {
             auto t = m.get_task(id);
-            std::cout << *t << std::endl;
+            
+            std::cout << std::setw(12) << t->get_id()
+                  << std::setw(32) << t->get_name()
+                  << std::setw(12) << t->get_status_string()
+                                   << t->get_progress() << "%" << std::endl;
         }
     }
 };
