@@ -37,6 +37,7 @@ public:
     std::shared_ptr<ITask> get_task(int task_id);
     std::map<int, std::string> get_task_types();
     std::vector<int> get_task_ids();
+    bool task_exists(int task_id);
 
 private:
     int create_id();

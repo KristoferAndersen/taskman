@@ -26,8 +26,8 @@ class TaskControllerTest : public ::testing::Test {
     TaskController c{start_task_factory, 10};
 };
 
-class TaskControllerStartTest : public TaskControllerTest {
-// Tests that involve the start methods
+class TaskControllerStartsTest : public TaskControllerTest {
+// Tests where tasks should be successfully started
 protected:
     // ARRANGE
     void SetUp() override {
@@ -45,7 +45,6 @@ protected:
     }
 };
 
-
 TEST_F(TaskControllerTest, no_initial_tasks) {
     EXPECT_EQ(c.get_task_ids().size(), 0) << "Incorrect initial number of tasks";
 }
@@ -58,7 +57,42 @@ TEST_F(TaskControllerTest, start_task_null_returns_non_id) {
     EXPECT_EQ(id, -1) << "Controller returned valid ID for an invalid task";
 }
 
-TEST_F(TaskControllerStartTest, start_type_records_task) {
+TEST_F(TaskControllerTest, pause_invalid_id_fails) {
+    // ACT
+    bool success = c.pause(-1);
+
+    // ASSERT
+    EXPECT_EQ(success, false) << "Controller paused invalid ID";
+}
+
+TEST_F(TaskControllerTest, resume_invalid_id_fails) {
+    // ACT
+    bool success = c.resume(-1);
+
+    // ASSERT
+    EXPECT_EQ(success, false) << "Controller resumed invalid ID";
+}
+
+TEST_F(TaskControllerTest, stop_invalid_id_fails) {
+    // ACT
+    bool success = c.stop(-1);
+
+    // ASSERT
+    EXPECT_EQ(success, false) << "Controller stopped invalid ID";
+}
+
+TEST_F(TaskControllerTest, start_type_invalid_returns_non_id) {
+    // ARRANGE & ASSERT
+    EXPECT_CALL(*start_task_factory, create_task(testing::_)).WillOnce(testing::Return(nullptr));
+
+    // ACT
+    int id = c.start(-1);
+
+    // ASSERT
+    EXPECT_EQ(id, -1) <<"Controller returned valid ID for an invalid task type";
+}
+
+TEST_F(TaskControllerStartsTest, start_type_records_task) {
     // ACT
     int expected_id = c.start(1);
     auto tasks = c.get_task_ids();
@@ -68,7 +102,7 @@ TEST_F(TaskControllerStartTest, start_type_records_task) {
     EXPECT_EQ(tasks[0], expected_id) << "Returned ID does not match recorded ID";
 }
 
-TEST_F(TaskControllerStartTest, start_type_starts_factorytask) {
+TEST_F(TaskControllerStartsTest, start_type_starts_factorytask) {
     // ACT
     int id = c.start(1);
 

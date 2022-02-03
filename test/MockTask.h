@@ -25,8 +25,8 @@ public:
     ~MockTask() {};
 
     MOCK_METHOD(void, start, (), ());
-    MOCK_METHOD(void, resume, (), ());
     MOCK_METHOD(void, pause, (), ());
+    MOCK_METHOD(void, resume, (), ());
     MOCK_METHOD(void, stop, (), ());
 
     MOCK_METHOD(void, set_id, (int task_id), ());

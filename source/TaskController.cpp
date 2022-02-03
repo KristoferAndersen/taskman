@@ -70,6 +70,8 @@ int TaskController::start(std::shared_ptr<ITask> task) {
 }
 
 bool TaskController::pause(int task_id) {
+    if(!task_exists(task_id)) { return false; }
+
     auto task = get_task(task_id);
     task->pause();
     // TODO: Need better awaits
@@ -78,6 +80,8 @@ bool TaskController::pause(int task_id) {
 }
 
 bool TaskController::resume(int task_id) {
+    if(!task_exists(task_id)) { return false; }
+
     auto task = get_task(task_id);
     task->resume();
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -85,6 +89,8 @@ bool TaskController::resume(int task_id) {
 }
 
 bool TaskController::stop(int task_id) {
+    if(!task_exists(task_id)) { return false; }
+
     auto task = get_task(task_id);
     task->stop();
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -104,6 +110,9 @@ std::map<int, std::string> TaskController::get_task_types() {
     return m_task_factory->m_named_tasks;
 }
 
+bool TaskController::task_exists(int task_id) {
+    return m_tasks.count(task_id) > 0;
+}
 /*
 * Protected members
 */
@@ -115,5 +124,6 @@ int TaskController::create_id() {
     // Initial functionality just increments from 0
     return m_task_ids.size() == 0 ? 0 : m_task_ids[m_task_ids.size()-1]+1;
 }
+
 
 } //taskman
