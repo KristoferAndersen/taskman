@@ -35,11 +35,12 @@ enum TaskCommands {
 class ITask
 {
 public:
-    ITask(std::string name) : m_name(name), m_status(TaskStates::Paused), m_command(TaskCommands::Pause) {
-        m_status_strings[TaskStates::Paused] = "Paused";
-        m_status_strings[TaskStates::Running] = "Running";
-        m_status_strings[TaskStates::Stopped] = "Stopped";
-        m_status_strings[TaskStates::Completed] = "Completed";
+    ITask(std::string name)
+        : m_name(name), m_status(TaskStates::Paused), m_command(TaskCommands::Pause), m_progress(0) {
+            m_status_strings[TaskStates::Paused] = "Paused";
+            m_status_strings[TaskStates::Running] = "Running";
+            m_status_strings[TaskStates::Stopped] = "Stopped";
+            m_status_strings[TaskStates::Completed] = "Completed";
     }
     virtual ~ITask() { m_thread.join(); }
 
@@ -54,6 +55,7 @@ public:
     std::string get_name() { return m_name; }
     int get_status() { return m_status; }
     std::string get_status_string() { return m_status_strings[m_status]; }
+    int get_progress() { return m_progress; }
 
     // Runs "do_work" asynchronously. Can be overriden to use different threading approaches.
     virtual void run() {
@@ -64,9 +66,9 @@ public:
     // Must monitor m_command to enable task control functions.
     virtual void do_work() {};
 
-
+    // Can be used to report status, but you probably want to format the output yourself.
     friend std::ostream& operator<<(std::ostream& os, ITask& t) {
-        os << t.m_id << "\t" << t.m_name << '\t' << t.get_status_string() << "\t100%";
+        os << t.m_id << "\t" << t.m_name << '\t' << t.get_status_string() << "\t" << t.get_progress() << "%";
         return os;
     }
 
@@ -74,11 +76,16 @@ public:
 protected:
     ITask();  // Prevent use of default constructor
     ITask(int id);
+    void done() {
+        m_status = TaskStates::Completed;
+        m_progress = 100;
+    }
 
     int m_id;
     std::string m_name;
     int m_status;
     int m_command;
+    int m_progress;
     std::thread m_thread;
 
     std::map<int, std::string> m_status_strings;

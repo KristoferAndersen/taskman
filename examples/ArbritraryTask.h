@@ -21,7 +21,13 @@ class ArbritraryTask : public taskman::ITask
 {
 public:
     ArbritraryTask() : taskman::ITask("Some other task") {};
-    void do_work() { std::cout << "Arbritrary tasks are also working!" << std::endl; }
+    void do_work() {
+        // The task completes instantly.
+        // It just demonstrates that you can define
+        //  your own tasks.
+        std::cout << "Arbritrary work!" << std::endl;
+        done();
+    }
 };
 
 } //examples

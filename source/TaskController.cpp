@@ -39,7 +39,7 @@ TaskController::~TaskController() {
     const auto& task_ids = get_task_ids();
 
     for(int id : task_ids) {
-        stop(id);
+        get_task(id)->stop();
     }
 }
 
@@ -70,6 +70,7 @@ int TaskController::start(std::shared_ptr<ITask> task) {
 bool TaskController::pause(int task_id) {
     auto task = get_task(task_id);
     task->pause();
+    // TODO: Need better awaits
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     return task->get_status() == TaskStates::Paused;
 }

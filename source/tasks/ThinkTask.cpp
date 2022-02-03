@@ -57,11 +57,13 @@ void ThinkTask::do_work() {
                 std::cerr << "Could not open file '" << thinking_file << "'" << std::endl;
                 return;
             }
+
+            m_progress = (double(thoughts) / double(target_thoughts)) * 100;
         }
     }
 
     file.close();
-    m_status = TaskStates::Completed;
+    done();
 }
 
 /*
