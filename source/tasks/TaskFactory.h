@@ -29,7 +29,7 @@ public:
     std::map<int, std::string> available_tasks();  // Return a vector of task_type_id-task_name pairs
 
     enum TaskTypes{
-        HelloTask
+        ThinkTask
     } m_task_types;
 
 

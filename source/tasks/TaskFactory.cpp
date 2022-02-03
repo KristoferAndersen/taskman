@@ -3,7 +3,7 @@
 /*
 * Local header files
 */
-#include <tasks/HelloTask.h>
+#include <tasks/ThinkTask.h>
 
 /*
 * System header files
@@ -18,7 +18,7 @@ namespace taskman
 
 TaskFactory::TaskFactory() {
     // Pair enum values with strings
-    m_named_tasks[TaskTypes::HelloTask] = "HelloTask";
+    m_named_tasks[TaskTypes::ThinkTask] = "ThinkTask";
 }
 
 /*
@@ -28,8 +28,8 @@ std::shared_ptr<ITask> TaskFactory::create_task(int task_type_id) {
     ITask* t;
 
     switch(task_type_id) {
-        case TaskTypes::HelloTask:
-            t = new taskman::HelloTask();
+        case TaskTypes::ThinkTask:
+            t = new taskman::ThinkTask();
             break;
     }
 

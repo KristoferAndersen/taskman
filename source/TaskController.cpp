@@ -29,7 +29,7 @@ TaskController::TaskController(const std::shared_ptr<TaskFactory> &task_factory,
     // We're not using this
     // I'm leaving it as an example
     task_whitelist = {
-        m_task_factory->HelloTask
+        m_task_factory->ThinkTask
     };
 }
 

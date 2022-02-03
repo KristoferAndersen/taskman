@@ -7,8 +7,8 @@ set(CMAKE_CXX_STANDARD 17)
 add_library(${PROJECT_NAME} SHARED
             source/TaskMan.cpp
             # TODO: Get these through include dir
-            source/tasks/HelloTask.cpp
-            source/tasks/HelloTask.h
+            source/tasks/ThinkTask.cpp
+            source/tasks/ThinkTask.h
             source/tasks/TaskFactory.h
             source/tasks/TaskFactory.cpp
             source/TaskController.h
@@ -17,6 +17,10 @@ add_library(${PROJECT_NAME} SHARED
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
                       PUBLIC_HEADER include/TaskMan.h)
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE Threads::Threads)
 
 include_directories(${PROJECT_NAME} PRIVATE include)
 include_directories(${PROJECT_NAME} PRIVATE source)

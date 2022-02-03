@@ -9,6 +9,7 @@
 * System header files
 */
 #include <iostream>
+#include <thread>
 
 /*
 * Forward declarations
@@ -24,28 +25,34 @@ enum TaskStates {
     Completed
 };
 
+enum TaskCommands {
+    Pause,
+    Run,
+    Stop
+};
+
 class ITask
 {
 public:
-    ITask(std::string name) : m_name(name), m_status(TaskStates::Paused) {}
-    //  virtual ~ITask();
+    ITask(std::string name) : m_name(name), m_status(TaskStates::Paused), m_command(TaskCommands::Pause) {}
+    virtual ~ITask() { m_thread.join(); }
 
     // These methods are not to be overriden.
-    void start() { run(); }
-    void pause() { m_status = TaskStates::Paused; }
-    void stop() { m_status = TaskStates::Stopped; }
+    void start() { m_command = TaskCommands::Run; run(); }
+    void pause() { m_command = TaskCommands::Pause; }
+    void stop() { m_command = TaskCommands::Stop; }
     void set_id(int task_id) { m_id = task_id; }
     int get_id() { return m_id; }
 
-    // Runs do_work asynchronously. Can be overriden to use different threading approaches.
+    // Runs "do_work" asynchronously. Can be overriden to use different threading approaches.
     virtual void run() {
-        for(int i = 0; i < 3; i++) {
-            do_work();
-        }
+        m_thread = std::thread(&ITask::do_work, this);
     }
 
     // The task. Must be defined by concrete task objects.
-    virtual void do_work() = 0;
+    // Must monitor m_command
+    // ITask::do_work is not purely virtual so that this dud can be called by the default runner
+    virtual void do_work() {};
 
 
     friend std::ostream& operator<<(std::ostream& os, const ITask& t) {
@@ -61,6 +68,8 @@ private:
     int m_id;
     std::string m_name;
     int m_status;
+    int m_command;
+    std::thread m_thread;
 };
 
 } //taskman

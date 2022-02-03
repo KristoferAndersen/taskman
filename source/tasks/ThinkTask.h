@@ -1,10 +1,12 @@
-#ifndef _taskman_HelloTask_h_
-#define _taskman_HelloTask_h_
+#ifndef _taskman_ThinkTask_h_
+#define _taskman_ThinkTask_h_
 
 /*
 * Local header files
 */
 #include <ITask.h>
+#include <thread>
+#include <chrono>
 
 /*
 * System header files
@@ -17,13 +19,13 @@
 namespace taskman
 {
 
-class HelloTask : public ITask
+class ThinkTask : public ITask
 {
  public:
-    HelloTask();
+    ThinkTask();
     void do_work();
 };
 
 } //taskman
 
-#endif //_taskman_HelloTask_h_
+#endif //_taskman_ThinkTask_h_

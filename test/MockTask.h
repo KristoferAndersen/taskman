@@ -29,7 +29,7 @@ public:
     MOCK_METHOD(int, get_id, (), ());
 
     MOCK_METHOD(void, run, (), ());
-    MOCK_METHOD(void, do_work, (), (override));
+    MOCK_METHOD(void, do_work, (), ());
 };
 
 } //taskman
