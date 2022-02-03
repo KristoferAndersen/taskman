@@ -115,4 +115,6 @@ This allows a test to easily separate functionality and mock that which is not t
 As mentioned in the testing chapter. Testing is mostly a demonstration, and can be improved.
 The project can be polished further.
 Further additions such as more task types, using different types of async behaviors would make the project feel more complete.
-Some improvements are described in comments, which I've allowed myself to leave.
+The code could also use a good linting.
+
+Some improvements are described in comments which I've allowed myself to leave.
